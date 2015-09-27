@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Prediction of Car Braking Distance</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Prediction of Car Braking Distance">
+  <meta name="author" content="Obi Isebor">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Prediction of Car Braking Distance</h1>
+    <h2>Developing data products coursera project</h2>
+    <p>Obi Isebor<br/>Data science enthusiast</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Motivation</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>There is a relationship between speed of moving cars and the stopping distance 
+of the car once the driver hits the brakes</li>
+<li>It would be useful to be able to quantify this relationship and predict
+stopping distances for cars moving at certain speeds. This information is useful
+for:
+
+<ul>
+<li>Public safety</li>
+<li>Car and tire manufacturers</li>
+<li>Driver training and testing</li>
+</ul></li>
+<li>Now available: a web application to predict stopping distances given car speeds</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Details</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Web application is based on linear model regression of the <code>cars</code> dataset available in R</li>
+</ul>
+
+<pre><code>## &#39;data.frame&#39;:    50 obs. of  2 variables:
+##  $ speed: num  4 4 7 7 8 9 10 10 10 11 ...
+##  $ dist : num  2 10 4 22 16 10 18 26 34 17 ...
+</code></pre>
+
+<ul>
+<li>The two variables in the dataset are <code>speed</code> of the car and <code>dist</code>, the stopping distance</li>
+<li>The dataset includes stopping distances for speeds up to 25 mph, however in 
+order to extrapolate the stopping distance to higher speeds, a linear model is used</li>
+<li>The model: <code>dist = slope*speed + intercept</code></li>
+<li>The web application has two purposes (separated into two panels): 
+
+<ul>
+<li>linear model calibration to determine parameters <code>slope</code> and <code>intercept</code>
+that best fit the <code>cars</code> data</li>
+<li>the stopping distance prediction, given a specified car speed</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Calibration Section</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>In the <strong>Linear Model Calibration Panel</strong>, the user has two options to calibrate the linear model:</p>
+
+<div style='float:left;width:48%;' class='centered'>
+  <p>Manual calibration by varying slope and intercept values to find a linear
+  regression line that best fits the <code>cars</code> data, i.e., modifying the parameters
+  for the red line in the figure shown to the right</p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="assets/fig/unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="300px" height="250px" /></p>
+
+</div>
+<div>
+  <p>Automatic calibration (recommended), where the following R code is run in the background to 
+determine the regression coefficients (slope &amp; intercept):</p>
+
+<pre><code class="r">data(cars)
+coef(lm(dist ~ speed, data = cars))
+</code></pre>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Prediction Section</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>When satisfied with the calibration, in the <strong>Prediction Panel</strong>, the user can now begin to predict braking distances based on speeds he/she can input in this panel</li>
+<li>Predictions are based on the calibration performed in the calibration panel</li>
+<li>Enjoy!</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Motivation'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Details'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Calibration Section'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Prediction Section'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
